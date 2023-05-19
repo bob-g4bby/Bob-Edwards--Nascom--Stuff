@@ -1,0 +1,498 @@
+Drive 0: Host file: BOB1.DSK
+         Disk name: PolyDos 2.0 SYSTEM  
+         Next free: 0x0498 (0x04ec sectors total)
+         Used FCBs: 50 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0001 c200 c200 L        Info.IN
+   0018 0003 c800 0000 L        Ecmd.OV
+   001b 0008 c800 0000 L        Edit.OV
+   0023 0001 c800 0000 L        XXfh.OV
+   0024 0010 b000 b000 L        BSdr.BR
+   0034 0016 1000 1000          PZAP.GO
+   004a 0005 0000 0000          SYSEQU.SY
+   004f 0005 1000 1000          FORMAT.GO
+   0054 0003 1000 1000          BACKUP.GO
+   0057 0004 1000 1000          SZAP.GO
+   005b 0020 e000 e000          BASROM.GO
+   007b 0049 10d6 0000          KRAAL.BS
+   00c4 0034 10d6 0000          TREK1.BS
+   00f8 000d 10d6 0000          SPIDER.BS
+   0105 0008 1000 1000          GRAPHS.GO
+   010d 0020 1000 2a00          SARGON.GO
+   012d 0049 2180 2180          BOMBER.PC
+   0176 0033 2180 2180          PACMAN.PC
+   01a9 0030 1000 344c          CASTLE.GO
+   01d9 0001 0000 0000          CHESS.TX
+   01da 0033 10d6 0000          ADVENT.BS
+   020d 0070 1000 1000          COLOSS.GO
+   027d 0013 1000 1000          ASTEROID.GO
+   0290 0035 1000 1000          DEFENCE.GO
+   02c5 0010 1000 1000          INVADERS.GO
+   02d5 0031 10d6 0000          BACKGAMM.BS
+   0306 0014 10d6 0000          CLINV.BS
+   031a 0022 10d6 0000          GOLF.BS
+   033c 0015 10d6 0000          DRAUGHTS.BS
+   0351 0005 0000 0000          BSfh.TX
+   0356 0001 c800 0000 L        BSfh.OV
+   0357 0004 0000 0000          PCfh.TX
+   035b 0001 c800 0000 L        PCfh.OV
+   035c 0020 1000 1000          SERPENT.GO
+   037c 003c 1300 24ea          NEWFASE.GO
+   03b8 003d 1000 20ea          JAIL.GO
+   03f5 0031 1000 4000          PASCAL.GO
+   0426 0048 2180 2180          FORCE.PC
+   046e 0009 1000 1000          BUZZ.GO
+   0477 0005 10d6 0000          CHORD1.BS
+   047c 0002 10d6 0000          SOUNDEX.BS
+   047e 0005 10d6 0000          CHORD2.BS
+   0483 0008 f000 0000 L        GRAROM.GO
+   048b 0008 f000 f000          CHEROM.GO
+   0493 0003 10d6 0000          GAMES.BS
+   0496 0001 10d6 0000          GRMOVE.BS
+   0497 0001 0000 0000          Init.TX
+
+Drive 0: Host file: BOB2.DSK
+         Disk name: PolyDos 2.0 SYSTEM  
+         Next free: 0x037d (0x04ec sectors total)
+         Used FCBs: 43 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000          Exec.OV
+   000c 0005 c800 0000          Emsg.OV
+   0011 0006 c800 0000          Dfun.OV
+   0017 0001 c200 c200          Info.IN
+   0018 0003 c800 0000          Ecmd.OV
+   001b 0008 c800 0000          Edit.OV
+   0023 0010 b000 b000          BSdr.BR
+   0033 0016 1000 1000          PZAP.GO
+   0049 0005 0000 0000          SYSEQU.SY
+   004e 0005 1000 1000          FORMAT.GO
+   0053 0003 1000 1000          BACKUP.GO
+   0056 0004 1000 1000          SZAP.GO
+   005a 0020 e000 e000          BASROM.GO
+   007a 0001 c800 0000          BSfh.OV
+   007b 0001 c800 0000          PCfh.OV
+   007c 0010 1000 1000          PTXT.GO
+   008c 0008 f000 0000          GRAROM.GO
+   0094 0004 c800 0000          PxGr.OV
+   0098 0001 0000 0000          Init.TX
+   0099 0031 1000 4000          PASCAL.GO
+   00ca 0017 1000 1000          PCCHECK.ZT
+   00e1 0001 10d6 0000          TEMP2.BS
+   00e2 0001 10d6 0000          TEMP1.BS
+   00e3 001b 0000 0000          TEMP.BS
+   00fe 0001 0000 0000          CIRTX.TX
+   00ff 0017 10d6 0000          CIRCUITS.BS
+   0116 0026 2180 2180          INFER.PC
+   013c 0002 2180 2180          JOYSTICK.PC
+   013e 000d c400 c400          NASDIS.GO
+   014b 0095 0000 0000          POLYDOS.BS
+   01e0 0020 0000 0000          POLY.TX
+   0200 0002 10d6 0000          ZPSTRIP.BS
+   0202 007d 0000 0000          TEXT4.TX
+   027f 007f 0000 0000          POLYDOS.TX
+   02fe 0007 d000 d000          POLYDOS.GO
+   0305 003c 10d6 0000          DOCTOR.BS
+   0341 0001 0000 0000          TESTSCAL.TX
+   0342 0001 d800 0000          TESTSCAL.GO
+   0343 0003 10d6 0000          TESTSCAL.BS
+   0346 0016 0000 0000          PLOT.BS
+   035c 0012 0000 0000          PLOT.TX
+   036e 0001 0000 0000          CFILE.TX
+   036f 000e 2180 2180          BLSCAN.GO
+
+Drive 0: Host file: BOB3.DSK
+         Disk name: BOB3                
+         Next free: 0x025e (0x04ec sectors total)
+         Used FCBs: 40 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0001 c200 c200          MInfo.IN
+   0018 0003 c800 0000 L        Ecmd.OV
+   001b 0008 c800 0000 L        Edit.OV
+   0023 0010 b000 b000 L        BSdr.BR
+   0033 0016 1000 1000 L        PZAP.GO
+   0049 0005 0000 0000 L        SYSEQU.SY
+   004e 0003 1000 1000 L        BACKUP.GO
+   0051 0020 e000 e000 L        BASROM.GO
+   0071 0001 c800 0000 L        BSfh.OV
+   0072 0008 f000 0000 L        GRAROM.GO
+   007a 0001 c800 0000          PCfh.OV
+   007b 0031 1000 4000          PASCAL.GO
+   00ac 0001 0000 0000          A.TX
+   00ad 0001 0000 0000          L.TX
+   00ae 0001 0000 0000          E.TX
+   00af 0004 1000 1000 L        SZAP.GO
+   00b3 0001 10d6 0000          TESTDT.BS
+   00b4 000d 0000 0000          PDISK.TX
+   00c1 0001 10d6 0000          TESTDS.BS
+   00c2 0001 d800 d800          PDISK.GO
+   00c3 0002 0000 0000          Info.TX
+   00c5 0001 c200 0000          Info.IN
+   00c6 0001 0000 0000          S.TX
+   00c7 0003 0c80 0c80          TSAVE.GO
+   00ca 002a 0000 0000          DSUB.TX
+   00f4 0010 0000 0000          PSUB.TX
+   0104 0001 0000 0000          POWER.TX
+   0105 0050 0000 0000          SLISP.TX
+   0155 0010 e000 e000          LISP.GO
+   0165 0002 0c80 0c80 L        HSPLOAD.MI
+   0167 0053 1000 1000 L        HSPASCAL.GO
+   01ba 0001 0000 0000          Init.TX
+   01bb 004e 1000 101e          TEST.GO
+   0209 0005 0000 0000          3D.TX
+   020e 000e 10d6 0000          OTHELLO.BS
+   021c 001b 10d6 0000          STARCOM.BS
+   0237 0027 1000 3700          STCOMRUN.MI
+
+Drive 0: Host file: BOB4.DSK
+         Disk name: BOB4                
+         Next free: 0x0452 (0x04ec sectors total)
+         Used FCBs: 48 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0003 c800 0000 L        Ecmd.OV
+   001a 0008 c800 0000 L        Edit.OV
+   0022 0010 b000 b000 L        BSdr.BR
+   0032 0016 1000 1000 L        PZAP.GO
+   0048 0005 0000 0000 L        SYSEQU.SY
+   004d 0003 1000 1000 L        BACKUP.GO
+   0050 0020 e000 e000 L        BASROM.GO
+   0070 0001 c800 0000 L        BSfh.OV
+   0071 0008 f000 0000 L        GRAROM.GO
+   0079 0001 c800 0000          PCfh.OV
+   007a 0031 1000 4000          PASCAL.GO
+   00ab 0030 1000 1000          MPASCAL.GO
+   00db 0004 1000 1000 L        SZAP.GO
+   00df 0002 0000 0000          Info.TX
+   00e1 0001 c200 0000          Info.IN
+   00e2 0001 0000 0000          S.TX
+   00e3 0001 0c80 0000          BLWSP.MI
+   00e4 0003 0c80 0c80          TSAVE.GO
+   00e7 0057 1000 2182          BLSCAN7.GO
+   013e 0001 0c80 0000          BLSCAN7.MI
+   013f 0001 0c80 0000          SERIWSP.MI
+   0140 007e 1000 2182          SERIBUS4.GO
+   01be 0001 0000 0000          BLSAVE.TX
+   01bf 0001 0000 0000          Init.TX
+   01c0 0001 0000 0000          DP.TX
+   01c1 0001 0c80 0000          DPWSP.MI
+   01c2 0098 1000 2182          DPROM41.GO
+   025a 0001 0000 0000          BLL.TX
+   025b 0001 0000 0000          BLH.TX
+   025c 00a0 1000 2182          BLSCAN.GO
+   02fc 0001 0c80 0000          BLSCAN.MI
+   02fd 0025 1000 1000          FORTH.GO
+   0322 0016 1000 1000          Z2GG.MI
+   0338 0016 1000 1000          Z2LC.MI
+   034e 0001 0000 0000          Z2.TX
+   034f 0002 0000 0000          MEMCOMP.TX
+   0351 0001 0c80 0c80          COMP.GO
+   0352 000a 0000 0000          SURFACE.BS
+   035c 0031 10d6 0000          VOTR2.BS
+   038d 0036 10d6 0000          VOTR3.BS
+   03c3 0003 10d6 0000          VOTR1.BS
+   03c6 0028 5000 5000          FORSCR.MI
+   03ee 0028 5000 5000          BUZZ.FO
+   0416 0024 1000 1000          SS.GO
+   043a 0018 0000 0000          DFORTH.TX
+
+Drive 0: Host file: BOB5.DSK
+         Disk name: BOB5                
+         Next free: 0x03be (0x04ec sectors total)
+         Used FCBs: 50 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0001 c200 c200 L        Info.IN
+   0018 0003 c800 0000 L        Ecmd.OV
+   001b 0008 c800 0000 L        Edit.OV
+   0023 0010 b000 b000 L        BSdr.BR
+   0033 0016 1000 1000 L        PZAP.GO
+   0049 0005 0000 0000 L        SYSEQU.SY
+   004e 0005 1000 1000 L        FORMAT.GO
+   0053 0003 1000 1000 L        BACKUP.GO
+   0056 0004 1000 1000 L        SZAP.GO
+   005a 0020 e000 e000 L        BASROM.GO
+   007a 0001 c800 0000 L        BSfh.OV
+   007b 0008 f000 0000 L        GRAROM.GO
+   0083 0031 1000 4000 L        PASCAL.GO
+   00b4 0001 0c80 0c80          STARWSP.MI
+   00b5 0001 0000 0000          TEMP.TX
+   00b6 0001 0000 0000          Init.TX
+   00b7 0080 1000 2182          T.GO
+   0137 0001 0c80 0c80          TWSP.MI
+   0138 0031 1000 4000 L        TEMP.GO
+   0169 0001 0000 0000          STEST3.TX
+   016a 0001 0000 0000          TEST3.TX
+   016b 0070 1000 2182          TEST3.GO
+   01db 0001 0c80 0c80          TEST3WSP.MI
+   01dc 000c 8020 8020          CAM2.GO
+   01e8 0003 0c80 0c80 L        TSAVE.GO
+   01eb 000d 0000 0000          CAM.TX
+   01f8 0002 0c86 0c86          CAM.GO
+   01fa 0001 0c80 0c80          TLINEWSP.MI
+   01fb 0043 1000 2182          TLINE.GO
+   023e 0001 0000 0000          LINE1.TX
+   023f 0001 0000 0000          LINE2.TX
+   0240 0001 0c80 0c80          LTESTWSP.MI
+   0241 0043 1000 2182          LTEST.GO
+   0284 0031 1000 4000          NPASCAL.GO
+   02b5 0001 0c80 0c80          CURWSP.MI
+   02b6 003e 1000 2182          CUR.GO
+   02f4 0001 0000 0000          CURSOR.TX
+   02f5 0001 0c80 0c80          SQWSP.MI
+   02f6 0041 1000 2182          SQ.GO
+   0337 0001 0000 0000          SQUARE.TX
+   0338 001e 0000 0000          GRA1.TX
+   0356 001e 0000 0000          GRA.TX
+   0374 0003 c800 c800  D       VGRA.OV
+   0377 0001 0c80 0c80          L3WSP.MI
+   0378 0042 1000 2182          L3.GO
+   03ba 0001 0000 0000          LINE3.TX
+   03bb 0003 c800 c800          VGRA.OV
+
+Drive 0: Host file: BOB6.DSK
+         Disk name: BOB6                
+         Next free: 0x01a3 (0x04ec sectors total)
+         Used FCBs: 42 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0001 c200 c200 L        Info.IN
+   0018 0003 c800 0000 L        Ecmd.OV
+   001b 0008 c800 0000 L        Edit.OV
+   0023 0010 b000 b000 L        BSdr.BR
+   0033 0016 1000 1000 L        PZAP.GO
+   0049 0005 0000 0000 L        SYSEQU.SY
+   004e 0005 1000 1000 L        FORMAT.GO
+   0053 0003 1000 1000 L        BACKUP.GO
+   0056 0004 1000 1000 L        SZAP.GO
+   005a 0020 e000 e000 L        BASROM.GO
+   007a 0001 c800 0000 L        BSfh.OV
+   007b 0008 f000 0000 L        GRAROM.GO
+   0083 0001 0000 0000 L        Init.TX
+   0084 0031 1000 4000 L        PASCAL.GO
+   00b5 0001 0000 0000          A.TX
+   00b6 0001 0000 0000          R.TX
+   00b7 0001 0000 0000          E.TX
+   00b8 0001 0000 0000          TMSTEST.TX
+   00b9 0001 8000 802a          TMSTEST.GO
+   00ba 0002 10d6 0000          TMSTEST.BS
+   00bc 0002 10d6 0000          TMSTEST2.BS
+   00be 0001 0000 0000          SORT.TX
+   00bf 0012 0000 0000          QSORT.TX
+   00d1 0005 0000 0000          STRCMP.TX
+   00d6 0007 0000 0000          CONCAT.TX
+   00dd 0007 0000 0000          POS.TX
+   00e4 0008 0000 0000          COPY.TX
+   00ec 0007 0000 0000          DELETE.TX
+   00f3 0009 0000 0000          INSERT.TX
+   00fc 0001 0c80 0c80          SPEECHWP.MI
+   00fd 0054 1000 2182          SPEECH.GO
+   0151 0030 1000 1000          NEWBLPAS.GO
+   0181 000c 2000 2000          HANOI.MI
+   018d 0001 0000 0000          BCEX.TX
+   018e 0001 1000 1000          BCEX.GO
+   018f 0009 0000 0000          BN2DEC.TX
+   0198 0007 0000 0000          DEC2BN.TX
+   019f 0003 0c80 0c80 L        TSAVE.GO
+   01a2 0001 0000 0000  D       CFILE.TX
+
+Drive 0: Host file: BOB7.DSK
+         Disk name: BOB7                
+         Next free: 0x041f (0x04ec sectors total)
+         Used FCBs: 50 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0003 c800 0000 L        Ecmd.OV
+   001a 0008 c800 0000 L        Edit.OV
+   0022 0010 b000 b000 L        BSdr.BR
+   0032 0016 1000 1000 L        PZAP.GO
+   0048 0005 0000 0000 L        SYSEQU.SY
+   004d 0003 1000 1000 L        BACKUP.GO
+   0050 0020 e000 e000 L        BASROM.GO
+   0070 0001 c800 0000 L        BSfh.OV
+   0071 0008 f000 0000 L        GRAROM.GO
+   0079 0031 1000 4000          PASCAL.GO
+   00aa 0004 1000 1000 L        SZAP.GO
+   00ae 0001 c200 0000          Info.IN
+   00af 0001 0000 0000          S.TX
+   00b0 0001 0c80 0000          BLWSP.MI
+   00b1 0057 1000 2182          BLSCAN7.GO
+   0108 0001 0c80 0000          BLSCAN7.MI
+   0109 0001 0c80 0000          SERIWSP.MI
+   010a 007e 1000 2182          SERIBUS4.GO
+   0188 0001 0000 0000          BLSAVE.TX
+   0189 0001 0000 0000          Init.TX
+   018a 0001 0000 0000          DP.TX
+   018b 0001 0c80 0000          DPWSP.MI
+   018c 0098 1000 2182          DPROM41.GO
+   0224 0001 0000 0000          BLL.TX
+   0225 0001 0000 0000          BLH.TX
+   0226 00a0 1000 2182          BLSCAN.GO
+   02c6 0001 0c80 0000          BLSCAN.MI
+   02c7 0001 0000 0000          BL.TX
+   02c8 0001 0000 0000          BLL1.TX
+   02c9 0001 0000 0000          BLH1.TX
+   02ca 0001 0c80 0c80          SQWSP.MI
+   02cb 0040 1000 2182          SQ.GO
+   030b 0001 0000 0000          A.TX
+   030c 0001 0000 0000          SQUARE.TX
+   030d 0027 0000 0000          CGRA.TX
+   0334 0001 0000 0000          LINE3.TX
+   0335 0001 0c80 0c80          L3WSP.MI
+   0336 0042 1000 2182          L3.GO
+   0378 0001 0000 0000          CUBIC.TX
+   0379 0042 1000 2182          CUB.GO
+   03bb 0001 0c80 0c80          CUBWSP.MI
+   03bc 0023 0000 0000          DGRA.TX
+   03df 0003 c800 c800          VGRA.GO
+   03e2 0003 c800 c800          VGRA.OV
+   03e5 0001 0c80 0c80          BUB.MI
+   03e6 0038 1000 2182          BUB.GO
+   041e 0001 0000 0000          BUBBLE.TX
+
+Drive 0: Host file: FORTH3.DSK
+         Disk name: FORTH3              
+         Next free: 0x043e (0x04ec sectors total)
+         Used FCBs: 41 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0003 c800 0000 L        Ecmd.OV
+   001a 0008 c800 0000 L        Edit.OV
+   0022 0010 b000 b000 L        BSdr.BR
+   0032 0016 1000 1000 L        PZAP.GO
+   0048 0005 0000 0000 L        SYSEQU.SY
+   004d 0003 1000 1000 L        BACKUP.GO
+   0050 0020 e000 e000 L        BASROM.GO
+   0070 0001 c800 0000 L        BSfh.OV
+   0071 0008 f000 0000 L        GRAROM.GO
+   0079 0004 1000 1000 L        SZAP.GO
+   007d 0001 c200 0000 L        Info.IN
+   007e 0025 1000 1000 L        FORTH.GO
+   00a3 0028 5000 5000 L        FORSCR.MI
+   00cb 0028 1000 1000          SPELL.FO
+   00f3 0008 1000 1000          INIT.FO
+   00fb 0078 1000 1000          VOCAB.FO
+   0173 002a 1000 1000          FORTH3.GO
+   019d 0009 0000 0000          VOCAB.TX
+   01a6 006c 1000 1000          VOCAB1.FO
+   0212 0028 1000 1000          CLOCK.FO
+   023a 0028 1000 1000          UNRAVEL.FO
+   0262 0028 1000 1000          PHON.FO
+   028a 0028 1000 1000          GRAPH.FO
+   02b2 0003 c800 c800          VGRA.OV
+   02b5 0023 0000 0000          VGRA.TX
+   02d8 0001 0000 0000          F.TX
+   02d9 0001 0c80 0c80          COMP.GO
+   02da 0040 1000 1000          TEST.FO
+   031a 003c 1000 1000          CHAR.FO
+   0356 002f 1000 1000          UNDO.GO
+   0385 002b 0000 0000          DEBUG.TX
+   03b0 004c 0000 0000          NASDIS.TX
+   03fc 0007 7000 7000          D.GO
+   0403 0015 0000 0000          DFORTH.TX
+   0418 0008 1000 1000          GET.FO
+   0420 0001 0000 0000          Init.TX
+   0421 0015 0000 0000          TEMP.TX
+   0436 0008 1000 1000          CONT.FO
+
+Drive 0: Host file: FORTH.DSK
+         Disk name: FORTH               
+         Next free: 0x0237 (0x04ec sectors total)
+         Used FCBs: 28 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0003 c800 0000 L        Ecmd.OV
+   001a 0008 c800 0000 L        Edit.OV
+   0022 0010 b000 b000 L        BSdr.BR
+   0032 0016 1000 1000 L        PZAP.GO
+   0048 0005 0000 0000 L        SYSEQU.SY
+   004d 0003 1000 1000 L        BACKUP.GO
+   0050 0020 e000 e000 L        BASROM.GO
+   0070 0001 c800 0000 L        BSfh.OV
+   0071 0008 f000 0000 L        GRAROM.GO
+   0079 0004 1000 1000 L        SZAP.GO
+   007d 0001 c200 0000 L        Info.IN
+   007e 0001 0000 0000 L        Init.TX
+   007f 0025 1000 1000 L        FORTH.GO
+   00a4 0028 5000 5000 L        FORSCR.MI
+   00ce 001e 0000 0000          DFORTH.TX
+   00ec 0035 1000 1000          FORTH2.GO
+   0121 0028 1000 1000          TEST.FO
+   0149 0008 1000 1000          INIT.FO
+   0151 0028 1000 1000          SPELL.FO
+   0179 0018 0000 0000  D       EFORTH.TX
+   0191 0024 1000 1000  D       FORTH4.GO
+   01b5 0035 1000 1000  D       FORTH4.GO
+   01ea 0018 0000 0000          EFORTH.TX
+   0202 0035 1000 1000          FORTH4.GO
+
+Drive 0: Host file: REVAS.DSK
+         Disk name: BOB6                
+         Next free: 0x024b (0x04ec sectors total)
+         Used FCBs: 37 out of 50
+ INFO check completed with no errors
+   Sect Nsct Load Exec SysFlg   Name
+   0004 0008 c800 0000 L        Exec.OV
+   000c 0005 c800 0000 L        Emsg.OV
+   0011 0006 c800 0000 L        Dfun.OV
+   0017 0001 c200 c200 L        Info.IN
+   0018 0003 c800 0000 L        Ecmd.OV
+   001b 0008 c800 0000 L        Edit.OV
+   0023 0010 b000 b000 L        BSdr.BR
+   0033 0016 1000 1000 L        PZAP.GO
+   0049 0005 0000 0000 L        SYSEQU.SY
+   004e 0005 1000 1000 L        FORMAT.GO
+   0053 0003 1000 1000 L        BACKUP.GO
+   0056 0004 1000 1000 L        SZAP.GO
+   005a 0001 c800 0000 L        BSfh.OV
+   005b 0008 f000 0000 L        GRAROM.GO
+   0063 0001 0000 0000 L        Init.TX
+   0064 0031 1000 4000 L        PASCAL.GO
+   0095 0012 0000 0000          QSORT.TX
+   00a7 0005 0000 0000          STRCMP.TX
+   00ac 0007 0000 0000          CONCAT.TX
+   00b3 0007 0000 0000          POS.TX
+   00ba 0008 0000 0000          COPY.TX
+   00c2 0007 0000 0000          DELETE.TX
+   00c9 0009 0000 0000          INSERT.TX
+   00d2 0009 0000 0000          BN2DEC.TX
+   00db 0007 0000 0000          DEC2BN.TX
+   00e2 0003 0c80 0c80 L        TSAVE.GO
+   00e5 0001 0c80 0c80          COMP.GO
+   00e6 000c 1000 1000          DIS.GO
+   00f2 0040 0000 0000          REVASC.TX
+   0132 004c 0000 0000  D       NASDIS.TX
+   017e 002b 0000 0000          DEBUG.TX
+   01a9 0024 1000 1000          SS.GO
+   01cd 0003 10d6 0000  D       CURVEFIT.BS
+   01d0 0020 e000 e000 L        BASROM.GO
+   01f0 0003 10d6 0000          CURVEFIT.BS
+   01f3 004c 0000 0000          NASDIS.TX
+   023f 000c 7000 7000          D.GO
+
