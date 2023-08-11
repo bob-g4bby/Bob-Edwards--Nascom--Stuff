@@ -1,0 +1,32 @@
+; FAST.TX - A Polydos Utility for Nascom 4
+; Sets the Z80 clock to 50MHz and
+; Adjusts keyboard autorepeat and cursor blink
+; to suit
+
+ REFS SYSEQU
+RKLON REF
+RKSHO REF
+CURBLR REF
+
+; Keyboard autorepeat settings for 50Mhz
+FDELAY1 EQU 1800H
+FDELAY2 EQU 600H
+FBLINK EQU 3H
+
+; Setting for 50MHz clock
+FCLOCK EQU 1
+CLPORT EQU 1AH
+
+ ORG 1000H
+ IDNT $,$
+ LD DE, FDELAY1
+ LD (RKLON), DE
+ LD DE, FDELAY2
+ LD (RKSHO), DE
+ LD A, FBLINK
+ LD (CURBLR), A
+ LD A, FCLOCK
+ OUT (CLPORT), A
+ RET
+
+; End of FAST.TX
