@@ -1,0 +1,7 @@
+Back in the 80's I ran a Nascom 1 with a homemade WD1797 style disk controller and Polydos 2. I scrounged a 5-1/4" Panasonic JU455 dsdd drive from work. This ran very reliably in the Nascom, providing 360kbyte of space per disk. I remember making a very simple change to the Polydos ROM to speed up the 'cylinder seek' speed of the floppy drive. That made the drive quieter and smoother in operation, sped up disk access and also proved to be reliable.
+
+The change to the Polydos ROM isn't that much to speed up the stepper motor - see Table 2 on page 8 of the WD1797 data sheet. Variables r0 and r1 determine the step rate, resulting in the values in table 1 page 6. So in essence, the WD1797 instructions for Restore, Seek, Step, Step in and Step out need adjusting.
+
+Well - on page 18 of the Polydos manual in the ROM listing, there is a table '1797 commands'. It's the two LS bits of CRSTOR, CSEEK and CSTEP that would need changing. Probably worth a try, on a spare EPROM, so that if the drive step becomes unreliable, you can always revert to the stock ROM.
+
+My JU455 worked OK, being a 'modern' half height drive. Maybe some of the older full height drives wouldn't tolerate the speed up. If you have the data sheet for the drive, then see if the higher step rate is within spec.
