@@ -1,8 +1,8 @@
 # Bob-Edwards -- Nascom Stuff
-Download all these files into one folder and open the 'Nascom Documentation Library.pdf' document. Test the hyperlinks to see if they jump to the right documents and the right page.
+Download all these files into one folder and open the 'Nascom Documentation Library.pdf' document. Try the hyperlinks to see if they jump to the right documents and the right page.
 
-You may have to disable  'reopen at the last page read' in your browser application for it to work. I use Edge in Windows 10 to read pdfs. I had to go into Settings -> Cookies and Site Permissions -> PDF documents -> PDF view settings - set the latter to OFF.
+You may have to disable the  'reopen the last session' feature in your browser for the links to work reliably. I use Edge in Windows 10 to read pdfs. I had to go into Settings -> Cookies and Site Permissions -> PDF documents -> PDF view settings - set the latter to OFF.
 
-This is version 2 of the library - it has full tables of contents for Nas-Sys 3, CP/M v2.2 and Polydos Users Guide + others, to get a feel for how quick / handy is two-tier navigation. More full t.o.c.s will follow, I'll up issue the version number to signal the changes.
+This is version 4 of the library - it has many navigable tables of contents for the larger documents. More to follow - I'll up-issue the version number to signal the changes.
 
 All comments / suggestions / bug reports are welcome via the Nascom I/O groups website. 
