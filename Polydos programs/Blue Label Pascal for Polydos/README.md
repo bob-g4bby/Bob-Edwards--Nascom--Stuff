@@ -5,7 +5,7 @@ Blue Label Pascal v1.3, adapted to
 2. Save compiled programs to disk
 3. Compiled programs can be run from the Polydos prompt
 
-blpascal.img is a disk image containing:-
+**blpascal.img** is a disk image containing:-
 
 Sect   Nsec    Load    Exec      Name                 Comment
 
@@ -25,7 +25,7 @@ Sect   Nsec    Load    Exec      Name                 Comment
 
 00C0   0001    0000    0000   TEST.TX              Simplest pascal program for initial test
 
-Nascom Documentation - Blue Label Pascal for Polydos.pdf ............... Instructions for use
+**Nascom Documentation - Blue Label Pascal for Polydos.pdf** ............... Instructions for use
  
-Nascom Documentation - pixel graphics using programmable characters .... Instructions for using pixel graphics
+**Nascom Documentation - pixel graphics using programmable characters** .... Instructions for using pixel graphics
      
