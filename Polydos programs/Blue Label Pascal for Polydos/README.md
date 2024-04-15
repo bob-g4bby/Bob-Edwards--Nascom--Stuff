@@ -28,4 +28,6 @@ Sect   Nsec    Load    Exec      Name                 Comment
 **Nascom Documentation - Blue Label Pascal for Polydos.pdf** ............... Instructions for use
  
 **Nascom Documentation - pixel graphics using programmable characters** .... Instructions for using pixel graphics
+
+Written, but not yet fully tested - BL Pascal library to give access to the Polydos system calls - to enable programs that read and write from disk.
      
