@@ -1,0 +1,429 @@
+Tape command entry point:
+
+23F6  11 40 21           LD   DE,#2140    ; the pascal warm start address
+23F9  D7                 RST  #10         ; 
+23FA  D8                 DEFB #D8         ; relative call to the same initialise stuff as SAVE
+23FB  18 F6              JR   #23F3       ; jump to 2AA0
+
+2AA0  D5                 PUSH DE          ;
+2AA1  FD E1              POP  IY          ; IY= pascal warm start address
+2AA3  CD FF 21           CALL #21FF       ; end address of object code set zero
+2AA6  3A C0 0C           LD   A,(#0CC0)   ; A = last command
+2AA9  FE 52              CP   #52         ; was that 'R'?
+2AAB  20 02              JR   NZ,#2AAF    ;
+2AAD  3E 43              LD   A,#43       ; Set A = 'C' if last command was not RUN
+
+2AAF  32 90 0C           LD   (#0C90),A   ;2..
+2AB2  FE 54              CP   #54         ; was that 'T'?
+2AB4  20 13              JR   NZ,#2AC9    ; Goto 2AC9 if last command was not TAPE
+
+2AB6  DF                 RST  #18         ; Turn on the TAPE led
+2AB7  5F                 DEFB #5F         ;
+2AB8  DF                 RST  #18         ; Wait for about 1 second
+2AB9  5D                 DEFB #5D         ;
+2ABA  AF                 XOR  A           ; A = 0, drop all flags
+2ABB  32 91 0C           LD   (#0C91),A   ;
+2ABE  FD 22 92 0C        LD   (#0C92),IY  ; (0c92) set to warm start address
+2AC2  47                 LD   B,A         ; B = 0
+
+2AC3  DF                 RST  #18         ; Send A to the serial output
+2AC4  6F                 DEFB #6F         ; 255 times as a leader
+2AC5  10 FC              DJNZ #2AC3       ;
+
+2AC7  18 2A              JR   #2AF3       ;.*
+
+2AF3  DD 21 00 40        LD   IX,#4000    ; IX points to start of source code
+2AF7  2A 80 0C           LD   HL,(#0C80)  ; HL = highest RAM system is allowed to access
+2AFA  2B                 DEC  HL          ; 
+2AFB  22 98 0C           LD   (#0C98),HL  ; (oc98) = (highest RAM - 1)
+2AFE  22 96 0C           LD   (#0C96),HL  ; (oc96) = (highest RAM - 1)
+2B01  CD 3A 3B           CALL #3B3A       ;
+2B04  CD F7 3A           CALL #3AF7       ;
+2B07  31 3F 20           LD   SP,#203F    ;
+2B0A  0A                 LD   A,(BC)      ;
+
+2B0B  CD B9 3B           CALL #3BB9       ;
+2B0E  28 05              JR    Z,#2B15    ;
+2B10  CD EF 3D           CALL #3DEF       ;
+2B13  18 F6              JR   #2B0B       ;
+
+2B15  AF                 XOR  A           ; A = 0, drop all flags 
+2B16  32 9E 0C           LD   (#0C9E),A   ;
+2B19  CD C2 36           CALL #36C2       ;
+2B1C  65                 LD   H,L         ;
+2B1D  FD E5              PUSH IY          ;
+2B1F  CD 75 36           CALL #3675       ;
+2B22  2A 80 0C           LD   HL,(#0C80)  ; HL = highest RAM permitted
+2B25  CD 75 36           CALL #3675       ;
+2B28  21 00 10           LD   HL,#1000    ;
+2B2B  CD 75 36           CALL #3675       ;
+2B2E  3A 90 0C           LD   A,(#0C90)   ;
+2B31  D6 43              SUB  #43         ;
+2B33  CD 7A 36           CALL #367A       ;
+2B36  CD 91 2B           CALL #2B91       ;
+2B39  DD 7E 00           LD   A,(IX)      ;
+2B3C  FE 2E              CP   #2E         ; fullstop?
+2B3E  CD 4E 3D           CALL #3D4E       ;
+2B41  09                 ADD  HL,BC       ;
+2B42  CD 7E 33           CALL #337E       ;
+2B45  3A 90 0C           LD   A,(#0C90)   ;
+2B48  FE 54              CP   #54         ; 'T' ?
+2B4A  28 09              JR    Z,#2B55    ;
+
+2B4C  CD C7 36           CALL #36C7       ;
+2B4F  03                 INC  BC          ;
+2B50  C3 03 10           JP   #1003       ;
+2B53  18 06              JR   #2B5B       ;
+
+2B55  CD C7 36           CALL #36C7       ;
+2B58  02                 LD   (BC),A      ;
+2B59  DF                 RST  #18         ; Return control to Nassys / Polydos
+2B5A  5B                 DEFB #5B         ;
+2B5B  E1                 POP  HL          ;
+2B5C  CD 2A 37           CALL #372A       ;
+2B5F  3A 90 0C           LD   A,(#0C90)   ;
+2B62  FE 43              CP   #43         ;
+2B64  20 0C              JR   NZ,#2B72    ;
+
+2B66  FD 22 84 0C        LD   (#0C84),IY  ;
+2B6A  EF                 RST  #28         ; Print "OK <cr>"
+2B6B  4F 4B              DEFM /OK/        ;OK
+2B6D  0D 00              DEFB #0D,#00     ;
+2B6F  C3 2B 22           JP   #222B       ;
+
+2B72  FE 54              CP   #54         ; 'T' ?
+2B74  20 17              JR   NZ,#2B8D    ;
+2B76  AF                 XOR  A           ;
+2B77  06 05              LD   B,#05       ; Send 4 ESC chars to serial port
+
+2B79  DF                 RST  #18         ; Send A to serial port
+2B7A  6F                 DEFB #6F         ;
+2B7B  3E 1B              LD   A,#1B       ; 'ESC'
+2B7D  10 FA              DJNZ #2B79       ;
+
+2B7F  DF                 RST  #18         ; Turn off the Tape LED
+2B80  5F                 DEFB #5F         ;
+2B81  FD E5              PUSH IY          ;
+2B83  E1                 POP  HL          ;
+2B84  DF                 RST  #18         ; Display code end address and a space + add to checksum
+2B85  66                 DEFB #66         ;
+2B86  EF                 RST  #28         ; Display 'End.'
+2B87  45 6E 64 2E        DEFM /End./      ;
+2B8B  00                 DEFB #00         ;.
+2B8C  C9                 RET              ; Return to main menu
+
+2B8D  EF                 RST  #28         ;o
+2B8E  3F                 DEFM /?/         ;?
+2B8F  00                 DEFB #00         ;.
+2B90  C9                 RET              ;I
+2B91  21 01 00           LD   HL,#0001    ;!..
+2B94  22 94 0C           LD   (#0C94),HL  ;"..
+2B97  CD BE 36           CALL #36BE       ;M>6
+2B9A  FD E5              PUSH IY          ;}e
+2B9C  CD 75 36           CALL #3675       ;Mu6
+2B9F  CD F7 3A           CALL #3AF7       ;Mw:
+2BA2  FD 3E 20           DEFB #FD,#3E,#20 ;}>
+2BA5  23                 INC  HL          ;#
+2BA6  2A 98 0C           LD   HL,(#0C98)  ;*..
+2BA9  E5                 PUSH HL          ;e
+2BAA  DD 7E 00           LD   A,(IX)      ;]~.
+2BAD  CD 13 3C           CALL #3C13       ;M.<
+2BB0  CD 0E 35           CALL #350E       ;M.5
+2BB3  3E 20              LD   A,#20       ;>
+2BB5  06 04              LD   B,#04       ;..
+2BB7  CD 31 35           CALL #3531       ;M15
+2BBA  AF                 XOR  A           ;/
+2BBB  10 FA              DJNZ #2BB7       ;.z
+2BBD  E1                 POP  HL          ;a
+2BBE  CD 46 35           CALL #3546       ;MF5
+2BC1  CD BD 3B           CALL #3BBD       ;M=;
+2BC4  28 E0              JR    Z,#2BA6    ;(`
+2BC6  CD E5 3B           CALL #3BE5       ;Me;
+2BC9  CD F7 3A           CALL #3AF7       ;Mw:
+2BCC  02                 LD   (BC),A      ;.
+2BCD  3F                 CCF              ;?
+2BCE  20 55              JR   NZ,#2C25    ; U
+2BD0  2A 98 0C           LD   HL,(#0C98)  ;*..
+2BD3  E5                 PUSH HL          ;e
+2BD4  E5                 PUSH HL          ;e
+2BD5  CD 08 35           CALL #3508       ;M.5
+2BD8  E3                 EX   (SP),HL     ;c
+2BD9  22 98 0C           LD   (#0C98),HL  ;"..
+2BDC  3E 3D              LD   A,#3D       ;>=
+2BDE  CD BF 3B           CALL #3BBF       ;M?;
+2BE1  CD 4E 3D           CALL #3D4E       ;MN=
+2BE4  02                 LD   (BC),A      ;.
+2BE5  CD EA 3C           CALL #3CEA       ;Mj<
+2BE8  D1                 POP  DE          ;Q
+2BE9  ED 53 98 0C        LD   (#0C98),DE  ;mS..
+2BED  3E 38              LD   A,#38       ;>8
+2BEF  B1                 OR   C           ;1
+2BF0  E5                 PUSH HL          ;e
+2BF1  CD 31 35           CALL #3531       ;M15
+2BF4  E1                 POP  HL          ;a
+2BF5  79                 LD   A,C         ;y
+2BF6  B7                 OR   A           ;7
+2BF7  20 0E              JR   NZ,#2C07    ; .
+2BF9  D9                 EXX              ;Y
+2BFA  E5                 PUSH HL          ;e
+2BFB  D5                 PUSH DE          ;U
+2BFC  C5                 PUSH BC          ;E
+2BFD  06 03              LD   B,#03       ;..
+
+3AF7  E3                 EX   (SP),HL     ;c
+3AF8  5E                 LD   E,(HL)      ;^
+3AF9  23                 INC  HL          ;#
+3AFA  56                 LD   D,(HL)      ;V
+3AFB  23                 INC  HL          ;#
+3AFC  E3                 EX   (SP),HL     ;c
+3AFD  EB                 EX   DE,HL       ;k
+3AFE  DD E5              PUSH IX          ;]e
+3B00  D1                 POP  DE          ;Q
+3B01  7E                 LD   A,(HL)      ;~
+3B02  CD FD 3B           CALL #3BFD       ;M};
+3B05  30 09              JR   NC,#3B10    ;0.
+3B07  CD 16 3B           CALL #3B16       ;M.;
+3B0A  C0                 RET  NZ          ;@
+3B0B  CD E6 39           CALL #39E6       ;Mf9
+3B0E  18 03              JR   #3B13       ;..
+3B10  CD 16 3B           CALL #3B16       ;M.;
+3B13  C0                 RET  NZ          ;@
+3B14  18 1E              JR   #3B34       ;..
+3B16  C5                 PUSH BC          ;E
+3B17  CD 26 3B           CALL #3B26       ;M&;
+3B1A  C1                 POP  BC          ;A
+3B1B  23                 INC  HL          ;#
+3B1C  13                 INC  DE          ;.
+3B1D  C0                 RET  NZ          ;@
+3B1E  2B                 DEC  HL          ;+
+3B1F  CB 7E              BIT  7,(HL)      ;K~
+3B21  23                 INC  HL          ;#
+3B22  28 F2              JR    Z,#3B16    ;(r
+3B24  AF                 XOR  A           ;/
+3B25  C9                 RET              ;I
+
+3B3A  DD 7E 00           LD   A,(IX)      ; Load A from source code
+3B3D  B7                 OR   A           ; Is this the end of the source code? (zero)
+3B3E  28 19              JR    Z,#3B59    ;(.
+3B40  FE 20              CP   #20         ; Is this a space
+3B42  28 15              JR    Z,#3B59    ;(.
+3B44  FE 0D              CP   #0D         ; Is this carriage return
+3B46  28 11              JR    Z,#3B59    ;(.
+3B48  FE 7B              CP   #7B         ; Is this {
+3B4A  28 14              JR    Z,#3B60    ;(.
+3B4C  FE 28              CP   #28         ; Is this (
+3B4E  20 07              JR   NZ,#3B57    ; .
+3B50  DD 7E 01           LD   A,(IX+#01)  ;]~.
+3B53  FE 2A              CP   #2A         ; is this *
+3B55  28 07              JR    Z,#3B5E    ;(.
+3B57  AF                 XOR  A           ;/
+3B58  C9                 RET              ;I
+3B59  CD EF 3D           CALL #3DEF       ;Mo=
+3B5C  18 DC              JR   #3B3A       ;.\
+3B5E  DD 23              INC  IX          ;]#
+3B60  CD EF 3D           CALL #3DEF       ;Mo=
+3B63  DD 7E 00           LD   A,(IX)      ;]~.
+3B66  FE 7D              CP   #7D         ; Is this }
+3B68  28 EF              JR    Z,#3B59    ;(o
+3B6A  FE 2A              CP   #2A         ; Is this *
+3B6C  20 F2              JR   NZ,#3B60    ; r
+3B6E  DD 23              INC  IX          ;]#
+3B70  DD 7E 00           LD   A,(IX)      ;]~.
+3B73  FE 29              CP   #29         ; Is this )
+3B75  28 E2              JR    Z,#3B59    ;(b
+3B77  18 EA              JR   #3B63       ;.j
+3B79  CD F7 3A           CALL #3AF7       ;Mw:
+3B7C  D8                 RET   C          ;X
+3B7D  3F                 CCF              ;?
+3B7E  C8                 RET   Z          ;H
+3B7F  CD 55 3D           CALL #3D55       ;MU=
+3B82  11 3E 3A           LD   DE,#3A3E    ;.>:
+3B85  18 38              JR   #3BBF       ;.8
+3B87  3E 5B              LD   A,#5B       ; A='['
+3B89  CD BF 3B           CALL #3BBF       ;M?;
+3B8C  C8                 RET   Z          ;H
+3B8D  3E 28              LD   A,#28       ; A='('
+3B8F  DD BE 00           CP   (IX)        ;]>.
+3B92  C0                 RET  NZ          ;@
+3B93  DD 7E 01           LD   A,(IX+#01)  ;]~.
+3B96  FE 2E              CP   #2E         ; Is this .
+3B98  C0                 RET  NZ          ;@
+3B99  DD 23              INC  IX          ;]#
+3B9B  18 BC              JR   #3B59       ;.<
+3B9D  3E 5D              LD   A,#5D       ; A=']'
+3B9F  CD BF 3B           CALL #3BBF       ;M?;
+3BA2  C8                 RET   Z          ;H
+3BA3  3E 2E              LD   A,#2E       ; A='.'
+3BA5  DD BE 00           CP   (IX)        ;]>.
+3BA8  C0                 RET  NZ          ;@
+3BA9  DD 7E 01           LD   A,(IX+#01)  ;]~.
+3BAC  FE 29              CP   #29         ; Is this )
+3BAE  C0                 RET  NZ          ;@
+3BAF  18 E8              JR   #3B99       ;.h
+3BB1  3E 28              LD   A,#28       ; A='('
+3BB3  18 0A              JR   #3BBF       ;..
+3BB5  3E 29              LD   A,#29       ; A=')'
+3BB7  18 06              JR   #3BBF       ;..
+3BB9  3E 3B              LD   A,#3B       ; A=';'
+
+The TAPE command is used to send compiled code to tape - which codes are used to do that? :-
+
+DF 6F --- A reg sent to serial port
+Present at:-             Used in T command?     Purpose
+
+1FF0                        no
+1FF8                        no
+2008                        no
+200B                        no
+200E                        no
+2011                        no
+2016                        no
+2027                        no
+22A8                        no
+22B0                        no
+22B6                        no
+22CF                        no
+22E3                        no
+22E6                        no
+22E9                        no
+22EC                        no
+22F3                        no
+22FC                        no
+2AC3                        yes                 send leader of 255 nulls
+2B79                        yes                 o/p what looks like 4-5 ESC chars??
+36F5                        yes                 send block marker of 4 FFs
+3701                        yes                 send start address low byte
+3704                        yes                 send start address high byte
+3707                        yes                 send length of data block (byte)
+370A                        yes                 send block number (byte)
+370F                        yes                 send header block checksum
+3719                        yes                 send code data block checksum (byte)
+
+DF 6D --- Send A chars starting at (HL)
+
+2024                        no
+22F7                        no
+3714                        yes                 send compiled code data block, starting at 0CC0, length B
+this subroutine calls DF 6F for each char
+
+So DF 6F needs to be redefined to do nothing
+DF 6D needs to feed a sector buffer, which is written to disk when the byte count exceeds 256
+After TAPE is finished, both system calls need to be normalised
+
+The code buffer starting at 0CC0 appears to be 64 bytes long, as inspected after executing a long TAPE cmd
+So 0CC0 to 0CFF. It's the same buffer used to store main menu inputs.
+
+Pascals' stack starts at 1000 and extends downwards to 0D00
+
+The code created by TAPE starts at address 2140 if no user address is specified
+
+To change a system call, use SCAL SSCV (DF 8D) with new address in HL. Returns with old address in HL
+DE,BC,AF changed.
+
+
+
+The SAVE keyword saves an array to tape - which codes are used to do that? :-
+
+DF 6F --- A reg sent to serial port
+Present at:-             Used in SAVE keyword?     Purpose
+
+1FF0                        yes
+1FF8                        yes
+2008                        yes
+200B                        yes
+200E                        yes
+2011                        yes
+2016                        yes
+2027                        yes
+22A8                        no
+22B0                        no
+22B6                        no
+22CF                        no
+22E3                        no
+22E6                        no
+22E9                        no
+22EC                        no
+22F3                        no
+22FC                        no
+
+DF 6D --- Send A chars starting at (HL)
+
+2024                        yes
+22F7                        no
+
+
+So disassembly of that region:-
+ATAPE:
+1FEA  DF                 RST  #18         ;_
+1FEB  5F                 DEFB #5F         ; Flip the TAPE LED
+1FEC  DF                 RST  #18         ;_
+1FED  5D                 DEFB #5D         ; Wait one second
+1FEE  AF                 XOR  A           ;/
+1FEF  47                 LD   B,A         ;G
+;
+ATAPE1:
+1FF0  DF                 RST  #18         ;_
+1FF1  6F                 DEFB #6F         ;o
+1FF2  10 FC              DJNZ ATAPE1       ; Output 255 0's to the serial port as leader
+;
+1FF4  3E F0              LD   A,#F0       ;>p
+1FF6  06 04              LD   B,#04       ;..
+ATAPE2:
+1FF8  DF                 RST  #18         ;_
+1FF9  6F                 DEFB #6F         ;o
+1FFA  10 FC              DJNZ ATAPE2       ; Output 4 F0 hex bytes as a start marker
+;
+1FFC  EB                 EX   DE,HL       ;k
+1FFD  E3                 EX   (SP),HL     ;c
+1FFE  4E                 LD   C,(HL)      ;N
+1FFF  23                 INC  HL          ;#
+2000  46                 LD   B,(HL)      ; Load BC from the pointer on top of stack
+2001  23                 INC  HL          ;#
+2002  5E                 LD   E,(HL)      ;^
+2003  23                 INC  HL          ;#
+2004  56                 LD   D,(HL)      ; Load DE from the next word pointed to
+2005  23                 INC  HL          ;#
+2006  E3                 EX   (SP),HL     ;c
+2007  7A                 LD   A,D         ;z
+2008  DF                 RST  #18         ;_
+2009  6F                 DEFB #6F         ;o
+200A  7B                 LD   A,E         ;{
+200B  DF                 RST  #18         ;_
+200C  6F                 DEFB #6F         ; Output DE to serial port  - the data BYTE count
+200D  78                 LD   A,B         ;x
+200E  DF                 RST  #18         ;_
+200F  6F                 DEFB #6F         ;o
+2010  79                 LD   A,C         ;y
+2011  DF                 RST  #18         ;_
+2012  6F                 DEFB #6F         ; Output BC to serial port
+2013  80                 ADD  A,B         ;.
+2014  82                 ADD  A,D         ;.
+2015  83                 ADD  A,E         ;.
+2016  DF                 RST  #18         ;_
+2017  6F                 DEFB #6F         ; Output checksum byte to serial port for the above three params
+ATAPE3:
+2018  01 00 00           LD   BC,#0000    ;...
+201B  14                 INC  D           ;.
+201C  15                 DEC  D           ;.
+201D  20 05              JR   NZ,ATAPE5    ; .
+201F  43                 LD   B,E         ;C
+2020  04                 INC  B           ;.
+2021  05                 DEC  B           ;.
+2022  28 0A              JR    Z,ATAPE4    ;(.
+ATAPE5:
+2024  DF                 RST  #18         ;_
+2025  6D                 DEFB #6D         ; Output data block to serial port
+2026  79                 LD   A,C         ;y
+2027  DF                 RST  #18         ;_
+2028  6F                 DEFB #6F         ; Output some kind of block check byte?
+2029  7A                 LD   A,D         ;z
+202A  15                 DEC  D           ;.
+202B  B7                 OR   A           ;7
+202C  20 EA              JR   NZ,ATAPE3    ; j
+ATAPE4:
+202E  DF                 RST  #18         ;_
+202F  5F                 DEFB #5F         ; Flip TAPE LED
+2030  C9                 RET              ;I
+
+integers take 2 bytes, reals 6 bytes and strings occupy one more byte to define current length
+e.g. a 3 element array of 32 bit strings occupies ( 32 +1 ) * 3 = 99 bytes

@@ -1,0 +1,17 @@
+Nascom 4 programmable character generator
+
+Map chargen memory into the main memory space:-
+
+output $E1 to port $EC
+
+Unmap chargen memory into the main memory space:-
+
+output $E0 to port $EC
+
+Enable character generator access:-
+
+output $59 to port $18
+
+Disable character generator access:-
+
+output $19 to port $18

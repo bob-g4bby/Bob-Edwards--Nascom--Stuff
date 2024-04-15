@@ -1,0 +1,19 @@
+PATCHES REQUIRED:-
+
+To call an extended switch table of commands in the overlay the following 8 bytes of code are needed:-
+
+2161  3E 02              LD A, <the overlay menu function>
+2163  DF 88              SCAL COV
+2165  50 41 66 68        DB 'PAfh'
+2169
+
+The upper memory address code doesn't work under Polydos because it overruns Polydos workspace, so, we use that space to initialise the PAfh.OV overlay:-
+
+21CO  3E 01              LD A, <overlay initialise>
+21C2  DF 88              SCAL COV
+21C4  50 41 66 68        DB 'PAfh'
+...                      NOP
+21D8                     NOP  - (important to have NOPs all the way to 21D8) 
+
+The program version number is changed from V1.3 to 1.3D to denote Disk:-
+217F  31 2E 33 44 

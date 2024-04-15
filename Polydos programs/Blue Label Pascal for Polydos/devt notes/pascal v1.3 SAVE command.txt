@@ -1,0 +1,135 @@
+PASCAL V1.3 SAVE COMMAND
+
+228A  21 C0 0C           LD   HL,#0CC0    ; HL points to last cmd line
+
+SAVE1:
+228D  23                 INC  HL          ;#
+228E  7E                 LD   A,(HL)      ;~
+228F  FE 0D              CP   #0D         ;~.
+2291  C8                 RET   Z          ; return if no filename provided
+2292  FE 20              CP   #20         ;~
+2294  20 F7              JR   NZ,SAVE1    ; Position HL at start of file name
+
+SAVE2:                                    ; HL now points to space after the SAVE command
+2296  23                 INC  HL          ;#
+2297  7E                 LD   A,(HL)      ;~
+2298  FE 0D              CP   #0D         ;~.
+229A  C8                 RET   Z          ;
+229B  FE 20              CP   #20         ;~
+229D  28 F7              JR    Z,SAVE2    ;(w
+229F  C9                 RET              ;I
+
+; ENTRY POINT OF THE SAVE COMMAND
+
+22A0  D7                 RST  #10         ; set HL at start of filename
+22A1  E8                 DEFB #E8         ; call 228A
+22A2  DF                 RST  #18         ; turn the TAPE LED on
+22A3  5F                 DEFB #5F         ;
+22A4  DF                 RST  #18         ; call TDEL wait about 1s at 4MHz
+22A5  5D                 DEFB #5D         ;
+22A6  AF                 XOR  A           ; A=0
+22A7  47                 LD   B,A         ; B=0
+
+SAVE3:
+22A8  DF                 RST  #18         ; output 256 zeros on the serial port 
+22A9  6F                 DEFB #6F         ; 
+22AA  10 FC              DJNZ SAVE3       ; 
+
+22AC  3E AA              LD   A,#AA       ; 
+22AE  06 04              LD   B,#04       ; 
+
+SAVE4:
+22B0  DF                 RST  #18         ;  
+22B1  6F                 DEFB #6F         ;
+22B2  10 FC              DJNZ SAVE4       ; AAAA marker sent to the serial port
+
+SAVE5:
+22B4  7E                 LD   A,(HL)      ;
+22B5  23                 INC  HL          ;
+22B6  DF                 RST  #18         ;Send the file name to the serial port
+22B7  6F                 DEFB #6F         ;including the cr
+22B8  FE 0D              CP   #0D         ;
+22BA  20 F8              JR   NZ,SAVE5    ; 
+
+22BC  21 00 40           LD   HL,#4000    ; HL=start address of source text
+
+SAVE8:
+22BF  ED 5B 82 0C        LD   DE,(#0C82)  ; DE=end address of the source text
+22C3  EB                 EX   DE,HL       ; DE=start address HL=end address
+22C4  37                 SCF              ;
+22C5  ED 52              SBC  HL,DE       ; HL=HL-DE - the source text size
+22C7  DA 40 21           JP    C,#2140    ; jump to Pascal Warm Start - all text saved
+22CA  EB                 EX   DE,HL       ; HL=source text start address DE=source text size
+22CB  AF                 XOR  A           ; A=0
+22CC  FF                 RST  #38         ; call RDEL, delay dependent on A reg
+22CD  06 05              LD   B,#05       ; B=5
+
+SAVE6:
+22CF  DF                 RST  #18         ;
+22D0  6F                 DEFB #6F         ;
+22D1  3E FF              LD   A,#FF       ; FFFF marker sent to the serial port
+22D3  10 FA              DJNZ SAVE6       ;
+
+22D5  1C                 INC  E           ; LS source code text size + 1
+22D6  AF                 XOR  A           ; A=0
+22D7  BA                 CP   D           ; Is D=0?
+22D8  28 01              JR    Z,SAVE7    ; 
+22DA  58                 LD   E,B         ; E=0
+
+SAVE7:
+22DB  E5                 PUSH HL          ;e
+22DC  01 00 40           LD   BC,#4000    ;..@
+22DF  B7                 OR   A           ;7
+22E0  ED 42              SBC  HL,BC       ; HL=source code size
+22E2  7D                 LD   A,L         ;}
+22E3  DF                 RST  #18         ; send L to serial out
+22E4  6F                 DEFB #6F         ;o
+22E5  7C                 LD   A,H         ; 
+22E6  DF                 RST  #18         ; send H to serial port
+22E7  6F                 DEFB #6F         ;o
+22E8  7B                 LD   A,E         ;{
+22E9  DF                 RST  #18         ; send E to serial out
+22EA  6F                 DEFB #6F         ;o
+22EB  7A                 LD   A,D         ;z
+22EC  DF                 RST  #18         ; send D to serial out
+22ED  6F                 DEFB #6F         ;o
+22EE  0E 00              LD   C,#00       ; zero C
+22F0  DF                 RST  #18         ; Output HL and DE to screen as hex 
+22F1  6C                 DEFB #6C         ; HL starts from 0000 and counts up 100 at a time, 
+                                          ; DE shows the no. of chars yet to go
+22F2  79                 LD   A,C         ;
+22F3  DF                 RST  #18         ; send C=H+L+D+E to serial out, as a checksum
+22F4  6F                 DEFB #6F         ;
+22F5  E1                 POP  HL          ;
+22F6  43                 LD   B,E         ; B=E
+22F7  DF                 RST  #18         ; send string of chars at (HL) to serial port, length B
+22F8  6D                 DEFB #6D         ;m
+22F9  06 0B              LD   B,#0B       ;..
+22FB  79                 LD   A,C         ;y
+
+SAVE9:
+22FC  DF                 RST  #18         ; send C=string checksum to serial out
+22FD  6F                 DEFB #6F         ;o
+22FE  AF                 XOR  A           ;/
+22FF  10 FB              DJNZ SAVE9       ; and send 10 zeros to serial out
+
+2301  DF                 RST  #18         ; output cr/lf to screen
+2302  6A                 DEFB #6A         ;j
+2303  18 BA              JR   SAVE8       ;.:
+
+
+
+228A  21 C0 0C           LD   HL,#0CC0    ; HL points to last commend
+228D  23                 INC  HL          ;#
+228E  7E                 LD   A,(HL)      ;~
+228F  FE 0D              CP   #0D         ;~.
+2291  C8                 RET   Z          ;H
+2292  FE 20              CP   #20         ;~
+2294  20 F7              JR   NZ,#228D    ; w
+2296  23                 INC  HL          ;#
+2297  7E                 LD   A,(HL)      ;~
+2298  FE 0D              CP   #0D         ;~.
+229A  C8                 RET   Z          ;H
+229B  FE 20              CP   #20         ;~
+229D  28 F7              JR    Z,#2296    ;(w
+229F  C9                 RET              ;I

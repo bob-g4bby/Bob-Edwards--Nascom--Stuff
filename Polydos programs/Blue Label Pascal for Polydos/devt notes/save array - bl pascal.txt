@@ -1,0 +1,67 @@
+1FEA  DF                 RST  #18         ; Turn TAPE light on
+1FEB  5F                 DEFB #5F         ;
+1FEC  DF                 RST  #18         ; Wait around 1 sec
+1FED  5D                 DEFB #5D         ;
+
+1FEE  AF                 XOR  A           ; Send 255 0's to serial port
+1FEF  47                 LD   B,A         ;G
+1FF0  DF                 RST  #18         ;_
+1FF1  6F                 DEFB #6F         ;o
+1FF2  10 FC              DJNZ #1FF0       ;.|
+
+1FF4  3E F0              LD   A,#F0       ; Send a marker F0F0F0F0 to serial port
+1FF6  06 04              LD   B,#04       ;..
+1FF8  DF                 RST  #18         ;_
+1FF9  6F                 DEFB #6F         ;o
+1FFA  10 FC              DJNZ #1FF8       ;.|
+
+1FFC  EB                 EX   DE,HL       ;k
+1FFD  E3                 EX   (SP),HL     ;
+1FFE  4E                 LD   C,(HL)      ;N
+1FFF  23                 INC  HL          ;#
+2000  46                 LD   B,(HL)      ; BC loaded from value on stack
+2001  23                 INC  HL          ;#
+2002  5E                 LD   E,(HL)      ;^
+2003  23                 INC  HL          ;#
+2004  56                 LD   D,(HL)      ; DE loaded from value on stack
+2005  23                 INC  HL          ;#
+2006  E3                 EX   (SP),HL     ;c
+2007  7A                 LD   A,D         ;z
+2008  DF                 RST  #18         ; Send D to serial port
+2009  6F                 DEFB #6F         ;
+200A  7B                 LD   A,E         ;{
+200B  DF                 RST  #18         ; Send E to serial port
+200C  6F                 DEFB #6F         ;o
+200D  78                 LD   A,B         ;x
+200E  DF                 RST  #18         ; Send B to serial port
+200F  6F                 DEFB #6F         ;o
+2010  79                 LD   A,C         ;y
+2011  DF                 RST  #18         ; Send C to serial port
+2012  6F                 DEFB #6F         ;o
+2013  80                 ADD  A,B         ;.
+2014  82                 ADD  A,D         ;.
+2015  83                 ADD  A,E         ;.
+2016  DF                 RST  #18         ; Send checksum of B+C+D+E
+2017  6F                 DEFB #6F         ;o
+
+2018  01 00 00           LD   BC,#0000    ;...
+201B  14                 INC  D           ;.
+201C  15                 DEC  D           ;.
+201D  20 05              JR   NZ,#2024    ; .
+201F  43                 LD   B,E         ;C
+2020  04                 INC  B           ;.
+2021  05                 DEC  B           ;.
+2022  28 0A              JR    Z,#202E    ;(.
+2024  DF                 RST  #18         ;Send string of chars pointed to by HL, length B
+2025  6D                 DEFB #6D         ;
+2026  79                 LD   A,C         ;y
+2027  DF                 RST  #18         ; Send checksum of string to serial port
+2028  6F                 DEFB #6F         ;o
+2029  7A                 LD   A,D         ;z
+202A  15                 DEC  D           ;.
+202B  B7                 OR   A           ;7
+202C  20 EA              JR   NZ,#2018    ; Repeat until D=0
+
+202E  DF                 RST  #18         ; Turn TAPE light off
+202F  5F                 DEFB #5F         ;_
+2030  C9                 RET              ;I

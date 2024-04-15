@@ -1,0 +1,181 @@
+21FF  21 00 00           LD   HL,#0000    ;!..
+2202  22 84 0C           LD   (#0C84),HL  ; end address of object code set to 0
+2205  C9                 RET              ;I
+
+LOAD:
+2305  CD FF 21           CALL #21FF       ; Set end of code variable = 0
+
+VERIFY:
+2308  3E 52              LD   A,#52       ; letter R
+230A  21 3E 56           LD   HL,#563E    ;!>V
+230D  32 2B 0C           LD   (#0C2B),A   ; last command letter entered
+2310  21 A9 23           LD   HL,#23A9    ;
+2313  22 7B 0C           LD   (#0C7B),HL  ; set the user specified input routine
+2316  DF                 RST  #18         ; turn on the TAPE LED 
+2317  5F                 DEFB #5F         ;
+
+LOAD4:
+2318  CD 8A 22           CALL #228A       ; call the same initialise stuff  as SAVE
+
+LOAD1:
+231B  06 04              LD   B,#04       ;
+
+LOAD2:
+231D  CF                 RST  #08         ; wait for AAAA marker in serial input
+231E  FE AA              CP   #AA         ;~*
+2320  20 F9              JR   NZ,LOAD1    ; y
+2322  10 F9              DJNZ LOAD2       ;
+
+2324  EF                 RST  #28         ; print "File "
+2325  46 69 6C 65        DEFM /File/      ; 
+2329  20                 DEFM / /         ;
+232A  00                 DEFB #00         ;.
+232B  01 00 00           LD   BC,#0000    ;...
+232E  7E                 LD   A,(HL)      ;~
+232F  FE 0D              CP   #0D         ;~.
+2331  20 01              JR   NZ,LOAD3   ; .
+2333  04                 INC  B           ;.
+
+LOAD3:
+2334  CF                 RST  #08         ; Obtain an input character in the A register
+2335  BE                 CP   (HL)        ;>
+2336  23                 INC  HL          ;#
+2337  28 05              JR    Z,#233E    ;(.
+2339  04                 INC  B           ;.
+233A  05                 DEC  B           ;.
+233B  20 01              JR   NZ,#233E    ; .
+233D  0C                 INC  C           ;.
+233E  FE 0D              CP   #0D         ;~.
+2340  28 03              JR    Z,#2345    ;(.
+2342  F7                 RST  #30         ; print the filename
+2343  18 EF              JR   #2334       ;.o
+
+2345  EF                 RST  #28         ; print " found <cr>"
+2346  20 66 6F 75        DEFM / fou/      ; 
+234A  6E 64              DEFM /nd/        ;
+234C  0D 00              DEFB #0D,#00     ;..
+234E  0C                 INC  C           ;.
+234F  0D                 DEC  C           ;.
+2350  20 C6              JR   NZ,LOAD4    ; F
+
+LOAD6:
+2352  06 04              LD   B,#04       ;..
+
+LOAD5:
+2354  CF                 RST  #08         ; Obtain an input character in the A register
+2355  3C                 INC  A           ;<
+2356  20 FA              JR   NZ,LOAD6    ; z
+2358  10 FA              DJNZ LOAD5:       ;Wait for FFFF marker in serial input
+
+235A  CF                 RST  #08         ;
+235B  6F                 LD   L,A         ;
+235C  CF                 RST  #08         ;
+235D  67                 LD   H,A         ; HL is set from serial input
+235E  CF                 RST  #08         ;
+235F  5F                 LD   E,A         ;
+2360  CF                 RST  #08         ;
+2361  57                 LD   D,A         ; DE is set from serial input
+2362  0E 00              LD   C,#00       ;..
+2364  DF                 RST  #18         ; print HL and DE
+2365  6C                 DEFB #6C         ;
+2366  CF                 RST  #08         ; read input char in A
+2367  B9                 CP   C           ; Compare checksum with that received
+2368  20 23              JR   NZ,LOAD7    ; go print ? if checksum wrong
+236A  ED 4B 82 0C        LD   BC,(#0C82)  ; BC=end address of source text
+236E  09                 ADD  HL,BC       ;.
+236F  43                 LD   B,E         ;C
+2370  0E 00              LD   C,#00       ;..
+
+LOAD8:
+2372  3A 2B 0C           LD   A,(#0C2B)   ; Was last command R ?
+2375  FE 52              CP   #52         ;~R
+2377  28 03              JR    Z,#237C    ;(.
+2379  CF                 RST  #08         ; read input char in A
+237A  18 02              JR   LOAD11      ;..
+
+237C  CF                 RST  #08         ; read input char in A
+237D  77                 LD   (HL),A      ;w
+
+
+LOAD11:
+237E  E5                 PUSH HL          ;e
+237F  2A 29 0C           LD   HL,(#0C29)  ; HL = cursor position
+2382  77                 LD   (HL),A      ;w
+2383  E1                 POP  HL          ;a
+2384  81                 ADD  A,C         ;.
+2385  4F                 LD   C,A         ;O
+2386  23                 INC  HL          ;#
+2387  10 E9              DJNZ LOAD8       ;.i
+
+2389  CF                 RST  #08         ; read input char in A
+238A  B9                 CP   C           ;9
+238B  28 07              JR    Z,LOAD9    ;(.
+
+LOAD7:
+238D  EF                 RST  #28         ; print "? "
+238E  3F 20              DEFM /? /        ;?
+2390  00                 DEFB #00         ;.
+2391  18 BF              JR   #2352       ;.?
+2393  C9                 RET              ;I
+
+LOAD9:
+2394  EF                 RST  #28         ; print ". "
+2395  2E 20              DEFM /. /        ;.
+2397  00                 DEFB #00         ;.
+2398  AF                 XOR  A           ;/
+2399  BA                 CP   D           ;:
+239A  20 B6              JR   NZ,#2352    ; 6
+239C  3A 2B 0C           LD   A,(#0C2B)   ;:+.
+239F  FE 52              CP   #52         ; char R
+23A1  20 03              JR   NZ,LOAD10   ; Jump if last cmd was not R
+23A3  22 82 0C           LD   (#0C82),HL  ; write the end address of source code
+
+LOAD10:
+23A6  C3 40 21           JP   #2140       ; jump to pascal warm start
+
+; the user specified input routine
+23A9  DF                 RST  #18         ;_ call srlin
+23AA  70                 DEFB #70         ;p
+23AB  D8                 RET   C          ;X
+23AC  C5                 PUSH BC          ;E
+23AD  D5                 PUSH DE          ;U
+23AE  E5                 PUSH HL          ;e
+23AF  DF                 RST  #18         ; scan nascom keyboard
+23B0  61                 DEFB #61         ;a
+23B1  E1                 POP  HL          ;a
+23B2  D1                 POP  DE          ;Q
+23B3  C1                 POP  BC          ;A
+23B4  30 F3              JR   NC,#23A9    ;0s
+23B6  FE 1B              CP   #1B         ; ESC char
+23B8  20 EF              JR   NZ,#23A9    ; o
+23BA  18 EA              JR   #23A6       ;.j
+23BC  2A 84 0C           LD   HL,(#0C84)  ; HL=end address of object code
+23BF  7C                 LD   A,H         ;|
+23C0  B5                 OR   L           ;5
+23C1  CC A0 2A           CALL  Z,#2AA0    ;L *
+23C4  EF                 RST  #28         ; print "Running"
+23C5  52 75 6E 6E        DEFM /Runn/      ;Runn
+23C9  69 6E 67           DEFM /ing/       ;ing
+23CC  0D 00              DEFB #0D,#00     ;..
+23CE  2A 82 0C           LD   HL,(#0C82)  ;*..
+23D1  23                 INC  HL          ;#
+23D2  E9                 JP   (HL)        ;i
+23D3  CD 8A 22           CALL #228A       ;M."
+23D6  FE 0D              CP   #0D         ;~.
+23D8  C8                 RET   Z          ;H
+23D9  EB                 EX   DE,HL       ;k
+23DA  DF                 RST  #18         ;_
+23DB  64                 DEFB #64         ;d
+23DC  2A 21 0C           LD   HL,(#0C21)  ;*!.
+23DF  EB                 EX   DE,HL       ;k
+23E0  D0                 RET  NC          ;P
+23E1  7E                 LD   A,(HL)      ;~
+23E2  FE 0D              CP   #0D         ;~.
+23E4  C8                 RET   Z          ;H
+23E5  E1                 POP  HL          ;a
+23E6  C3 FC 21           JP   #21FC       ;C|!
+23E9  ED 5B BE 0C        LD   DE,(#0CBE)  ;m[>.
+23ED  D7                 RST  #10         ;W
+23EE  E4                 DEFB #E4         ;d
+23EF  ED 53 BE 0C        LD   (#0CBE),DE  ;mS>.
+23F3  C3 A0 2A           JP   #2AA0       ;C *

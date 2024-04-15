@@ -1,0 +1,7 @@
+Search for DF 6F (Output char to serial port) used in TAPE command
+
+DF 70
+Located at      LOAD ARRAY      LOAD PROGRAM
+
+2093                yes             no
+23A9                no              yes

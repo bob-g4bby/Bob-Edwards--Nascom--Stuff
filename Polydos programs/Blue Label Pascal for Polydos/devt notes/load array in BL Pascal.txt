@@ -1,0 +1,95 @@
+2031  ED 53 9F 0C        LD   (#0C9F),DE  ;mS..
+2035  E1                 POP  HL          ;a
+2036  23                 INC  HL          ;#
+2037  23                 INC  HL          ;#
+2038  5E                 LD   E,(HL)      ;^
+2039  23                 INC  HL          ;#
+203A  56                 LD   D,(HL)      ; DE = (HL)
+203B  23                 INC  HL          ;#
+203C  ED 53 A3 0C        LD   (#0CA3),DE  ;mS#.
+2040  D1                 POP  DE          ;Q
+2041  ED 53 A1 0C        LD   (#0CA1),DE  ;mS!.
+2045  E5                 PUSH HL          ;e
+2046  DF                 RST  #18         ; Turn TAPE LED on
+2047  5F                 DEFB #5F         ;
+2048  06 04              LD   B,#04       ;..
+
+204A  D7                 RST  #10         ; Search for F0F0F0F0 marker on serial input
+204B  47                 DEFB #47         ;G
+204C  FE F0              CP   #F0         ;~p
+204E  20 F8              JR   NZ,#2048    ; x
+2050  10 F8              DJNZ #204A       ;.x
+
+2052  01 00 04           LD   BC,#0400    ;...
+2055  E1                 POP  HL          ;a
+2056  E5                 PUSH HL          ;e
+
+2057  2B                 DEC  HL          ;+
+2058  D7                 RST  #10         ;W
+2059  39                 DEFB #39         ;9
+205A  BE                 CP   (HL)        ;>
+205B  1E 01              LD   E,#01       ;..
+205D  20 48              JR   NZ,#20A7    ; H
+205F  81                 ADD  A,C         ;.
+2060  4F                 LD   C,A         ;O
+2061  10 F4              DJNZ #2057       ;.t
+
+2063  D7                 RST  #10         ;W
+2064  2E                 DEFB #2E         ;.
+2065  B9                 CP   C           ;9
+2066  1E 02              LD   E,#02       ;..
+2068  20 3D              JR   NZ,#20A7    ; =
+206A  ED 5B A3 0C        LD   DE,(#0CA3)  ;m[#.
+206E  2A A1 0C           LD   HL,(#0CA1)  ;*!.
+2071  01 00 00           LD   BC,#0000    ;...
+2074  14                 INC  D           ;.
+2075  15                 DEC  D           ;.
+2076  20 05              JR   NZ,#207D    ; .
+2078  43                 LD   B,E         ;C
+2079  04                 INC  B           ;.
+207A  05                 DEC  B           ;.
+207B  28 12              JR    Z,#208F    ;(.
+
+207D  D7                 RST  #10         ;W
+207E  14                 DEFB #14         ;.
+207F  77                 LD   (HL),A      ;w
+2080  23                 INC  HL          ;#
+2081  81                 ADD  A,C         ;.
+2082  4F                 LD   C,A         ;O
+2083  10 F8              DJNZ #207D       ;.x
+
+2085  D7                 RST  #10         ;W
+2086  0C                 DEFB #0C         ;.
+2087  B9                 CP   C           ;9
+2088  20 DC              JR   NZ,#2066    ; \
+208A  7A                 LD   A,D         ;z
+208B  15                 DEC  D           ;.
+208C  B7                 OR   A           ;7
+208D  20 E2              JR   NZ,#2071    ; b
+208F  1E 00              LD   E,#00       ;..
+2091  18 14              JR   #20A7       ;..
+
+2093  DF                 RST  #18         ; Load A from serial port
+2094  70                 DEFB #70         ;p
+2095  D8                 RET   C          ;X
+2096  C5                 PUSH BC          ;E
+2097  D5                 PUSH DE          ;U
+2098  E5                 PUSH HL          ;e
+2099  DF                 RST  #18         ; Scan Nascom keyboard
+209A  61                 DEFB #61         ;a
+209B  E1                 POP  HL          ;a
+209C  D1                 POP  DE          ;Q
+209D  C1                 POP  BC          ;A
+209E  30 F3              JR   NC,#2093    ;0s
+
+20A0  FE 1B              CP   #1B         ;~.
+20A2  20 EF              JR   NZ,#2093    ; o
+20A4  1E 03              LD   E,#03       ;..
+20A6  E1                 POP  HL          ;a
+20A7  2A 9F 0C           LD   HL,(#0C9F)  ;*..
+20AA  73                 LD   (HL),E      ;s
+20AB  23                 INC  HL          ;#
+20AC  36 00              LD   (HL),#00    ;6.
+20AE  DF                 RST  #18         ; Turn TAPE led off
+20AF  5F                 DEFB #5F         ;
+20B0  C9                 RET              ;I

@@ -1,0 +1,32 @@
+Search for DF 6F (Output char to serial port) used in TAPE command
+
+DF 6F
+Located at      TAPE        SAVE ARRAY
+
+1FF0            no             yes 
+1FF8            no             yes
+2008            no             yes
+200B            no             yes
+200E            no             yes
+2011            no             yes
+2016            no             yes
+2027            no             yes
+22A8            no             no
+22B0            no             no
+22B6            no             no
+22CF            no             no
+22E3            no             no
+22E6            no             no
+22E9            no             no
+22EC            no             no
+22F3            no             no
+22FC            no             no
+2AC3            yes            no
+2B79            yes
+36F5            yes
+3701            yes
+3704            yes
+3707            yes
+370A            yes
+370F            yes
+3719            yes
