@@ -1,0 +1,8 @@
+The KEYBOARD function in BL Pascal is as follows:
+
+20B1    RST 18H
+20B2    DB 61H      ; call kbd in nassys
+20B3    LD HL,0000H
+20B6    RET NC
+20B7    LD L,A
+20B8    RET

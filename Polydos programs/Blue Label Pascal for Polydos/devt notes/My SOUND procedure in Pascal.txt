@@ -1,0 +1,23 @@
+4DC7  0E 00              LD   C,#00       ;..
+4DC9  06 20              LD   B,#20       ;.
+    4DCB  50                 LD   D,B         ;P
+    4DCC  0C                 INC  C           ;.
+    4DCD  41                 LD   B,C         ;A
+        4DCE  58                 LD   E,B         ;X
+        4DCF  3E 20              LD   A,#20       ; o/p to keyboard sk1 pin 14?
+        4DD1  D3 00              OUT  (#00),A     ;S.
+        4DD3  42                 LD   B,D         ;B
+            4DD4  10 FE              DJNZ #4DD4       ;.~
+        4DD6  3E 00              LD   A,#00       ;>.
+        4DD8  D3 00              OUT  (#00),A     ;S.
+        4DDA  7A                 LD   A,D         ;z
+        4DDB  2F                 CPL              ;/
+        4DDC  47                 LD   B,A         ;G
+            4DDD  10 FE              DJNZ #4DDD       ;.~
+        4DDF  3E 01              LD   A,#01       ;>.
+        4DE1  FF                 RST  #38         ;.
+        4DE2  43                 LD   B,E         ;C
+        4DE3  10 E9              DJNZ #4DCE       ;.i
+    4DE5  42                 LD   B,D         ;B
+    4DE6  10 E3              DJNZ #4DCB       ;.c
+4DE8  C9                 RET              ;I
